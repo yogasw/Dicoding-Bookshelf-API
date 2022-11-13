@@ -1,16 +1,12 @@
 import { Server, Request, ResponseToolkit } from "@hapi/hapi";
+import routes from "./routes";
+
 const init = async () => {
     const server: Server = new Server({
-        port: 3000,
+        port: 5000,
         host: 'localhost'
     });
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request: Request, h: ResponseToolkit) => {
-            return 'Hello World!';
-        }
-    });
+    server.route(routes);
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
