@@ -11,8 +11,8 @@ interface Book {
     readPage: number;
     reading: boolean;
     finished: boolean;
-    insertedAt: Date;
-    updatedAt: Date;
+    insertedAt: string;
+    updatedAt: string;
 }
 
 const BookSchema = Joi.object({
@@ -56,7 +56,7 @@ const getBookById = (id: number) => {
 const addBook = (book: Book) => {
     lastBookId++;
     book.id = lastBookId
-    let now = new Date()
+    let now = new Date().toISOString()
     book.insertedAt = now;
     book.updatedAt = now;
     books[book.id] = book;
@@ -64,7 +64,7 @@ const addBook = (book: Book) => {
 }
 
 const updateBook = (book: Book) => {
-    book.updatedAt = new Date();
+    book.updatedAt = new Date().toISOString();
     book.finished = book.pageCount === book.readPage;
     books[book.id] = {...books[book.id], ...book};
     return books[book.id];
